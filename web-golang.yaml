@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-golang
+  labels:
+    name: web-golang
+    type: frontend
+spec:
+  selector:
+    matchLabels:
+      name: web-golang
+      l: jef
+  replicas: 4
+  template:
+    metadata:
+      name: web-golang
+      labels:
+        name: web-golang
+        l: jef
+    spec:
+      containers:
+      - name: c1
+        image: sevendollar/web-golang
+        ports:
+        - containerPort: 80
+          protocol: TCP
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-golang
+  labels:
+    name: web-golang
+spec:
+  type: NodePort
+  selector:
+    name: web-golang
+    l: jef
+  ports:
+  - port: 9090
+    targetPort: 80
