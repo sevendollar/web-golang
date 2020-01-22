@@ -9,21 +9,26 @@ spec:
   selector:
     matchLabels:
       name: web-golang
-      l: jef
+      owner: jef
   replicas: 4
   template:
     metadata:
       name: web-golang
       labels:
         name: web-golang
-        l: jef
+        owner: jef
     spec:
       containers:
-      - name: c1
+      - name: web
         image: sevendollar/web-golang
+        resources:
+          limits:
+            cpu: "250m"
+            memory: "64Mi"
         ports:
         - containerPort: 80
           protocol: TCP
+
 
 ---
 apiVersion: v1
@@ -36,7 +41,7 @@ spec:
   type: NodePort
   selector:
     name: web-golang
-    l: jef
+    owner: jef
   ports:
-  - port: 9090
+  - port: 8080
     targetPort: 80
