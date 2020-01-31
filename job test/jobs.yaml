@@ -1,0 +1,13 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: wait-for-30-seconds-job
+spec:
+  template:
+    metadata:
+      name: wait-for-30-seconds-job
+    spec:
+      restartPolicy: OnFailure
+      containers:
+      - name: c1
+        image: sevendollar/k8s-job-test
