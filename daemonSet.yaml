@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: jefs-first-ds
+spec:
+  selector:
+    matchLabels:
+      name: c1
+  template:
+    metadata:
+      labels:
+        name: c1
+    spec:
+      containers:
+      - name: c1
+        image: sevendollar/web-golang
+        ports:
+        - containerPort: 80
