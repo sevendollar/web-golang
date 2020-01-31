@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: jefs-first-rs
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      name: jefs-web-golang-pod
+  template:
+    metadata:
+      labels:
+        name: jefs-web-golang-pod
+    spec:
+      containers:
+      - name: c1
+        image: sevendollar/web-golang
+        ports:
+        - containerPort: 80
+        resources:
+          limits:
+            cpu: "500m"
+            memory: "500Mi"
