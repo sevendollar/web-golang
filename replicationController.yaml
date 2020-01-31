@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: jefs-first-rc
+spec:
+  replicas: 3
+  selector:
+    name: jefs-web-golang-pod
+  template:
+    metadata:
+      labels:
+        name: jefs-web-golang-pod
+    spec:
+      containers:
+      - name: c1
+        image: sevendollar/web-golang
+        ports:
+        - containerPort: 80
+        resources:
+          limits:
+            cpu: "500m"
+            memory: "500Mi"
