@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: jefs-first-service
+spec:
+  selector:
+    name: jefs-web-golang-pod
+  ports:
+  - port: 9999
+    targetPort: 80
+    
