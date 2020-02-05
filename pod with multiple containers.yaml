@@ -1,0 +1,51 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: test
+  labels:
+    name: test
+    app: lab
+spec:
+  containers:
+  - name: c1
+    image: sevendollar/web-golang
+    imagePullPolicy: Always
+    ports:
+    - name: http
+      containerPort: 80
+    volumeMounts:
+      - name: v1
+        mountPath: /nfs
+    resources:
+        limits:
+          cpu: "500m"
+          memory: "1Gi"
+  - name: c2
+    image: sevendollar/test
+    imagePullPolicy: Always
+    # ports:
+    # - name: http-8080
+    #   containerPort: 8080
+    volumeMounts:
+      - name: v1
+        mountPath: /nfs
+    resources:
+        limits:
+          cpu: "500m"
+          memory: "1Gi"
+  - name: c3
+    image: alpine
+    volumeMounts:
+      - name: v1
+        mountPath: /nfs
+    command: ["ping"]
+    args: ["tw.yahoo.com"]
+    resources:
+        limits:
+          cpu: "500m"
+          memory: "1Gi"
+  volumes:
+  - name: v1
+    nfs:
+      server: "10.7.12.3"
+      path: /volume1/k8s
