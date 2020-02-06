@@ -1,0 +1,24 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: jefs-pod
+spec:
+  volumes:
+  - name: v1
+    configMap:
+      name: yahoo-domain-name
+      items:
+      - key: YAHOO_DOMAIN_NAME
+        path: ./jef
+  containers:
+  - name: c1
+    image: busybox
+    resources:
+        limits:
+          cpu: "500m"
+          memory: "500Mi"
+    stdin: true
+    tty: true
+    volumeMounts:
+    - name: v1
+      mountPath: /c1

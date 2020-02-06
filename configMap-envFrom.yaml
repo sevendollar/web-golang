@@ -1,0 +1,21 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: jefs-pod
+spec:
+  containers:
+  - name: c1
+    image: busybox
+    resources:
+        limits:
+          cpu: "500m"
+          memory: "500Mi"
+    stdin: true
+    tty: true
+    envFrom:
+    - configMapRef:
+        name: yahoo-domain-name
+    command:
+    - ping
+    args:
+    - $(YAHOO)
